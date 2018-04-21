@@ -12,10 +12,11 @@ app.use(express.static('app/public/'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
 
-consign({cwd: 'app'})
-	.include('routes')
-	.then('controllers')
-	.then('models')
+consign()
+	.include('app/routes')
+	.then('config/db.js')
+	.then('app/controllers')
+	.then('app/models')
 	.into(app);
 
 module.exports = function() {

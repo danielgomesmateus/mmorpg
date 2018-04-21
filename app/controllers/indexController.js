@@ -1,3 +1,6 @@
 module.exports.index = function(app, request, response) {
-	response.render('index');
+	
+	var validation = {};
+	
+	response.render('index', {validation});
 }

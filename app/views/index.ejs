@@ -17,15 +17,21 @@
 	</head>
 
 	<body class="body-index">
-
+    	<% if(validation.length >= 1) { %>
+    	<% for(j = 0; j < validation.length; j ++) { %>
+		<div class="alert alert-danger">
+			<strong>
+				Erro!
+			</strong> <%= validation[j].msg %>
+		</div>
+		<% } } %>
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container">
-				<form class="form-inline form-entrar">
+				<form class="form-inline form-entrar" action="/login" method="POST">
 					<div class="form-group">				
-						<input type="text" name="usuario" id="usuario" placeholder="Usuário" class="form-control" autocomplete="off" />
-						<input type="password" name="senha" id="senha" placeholder="Senha" class="form-control" />
-						<button type="button" class="btn btn-success">Entrar</button>
-						<button type="button" class="btn btn-info">Cadastro</button>
+						<input type="text" name="username" id="usuario" placeholder="Usuário" class="form-control" autocomplete="off" required="required">
+						<input type="password" name="password" id="senha" placeholder="Senha" class="form-control" minlength="6" maxlength="10" required="required">
+						<button type="submit" class="btn btn-success">Entrar</button>
 					</div>
 				</form>
 			</div>

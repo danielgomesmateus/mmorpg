@@ -20,6 +20,29 @@ module.exports.register = function(app, request, response) {
 	}
 	else {
 		
+		var connDB = app.config.db;
+		var model = new app.app.models.usersModel(connDB);
+
+		model.register(user);
+
+		response.redirect('/game');
+	}
+}
+
+module.exports.login = function(app, request, response) {
+	
+	request.assert('username', 'Informe o nome de usuário!').notEmpty();
+	request.assert('password', 'Informe a senha de acesso!').notEmpty();
+
+	var errors = request.validationErrors();
+
+	if(errors) {
+
+		response.render('index', {validation: errors});
+		return;
+	}
+	else {
+
 		response.redirect('/game');
 	}
 }
