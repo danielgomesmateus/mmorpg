@@ -2,6 +2,7 @@ var express = require('express');
 var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var expressSession = require('express-session');
 
 var app = express();
 
@@ -11,6 +12,11 @@ app.set('views', 'app/views');
 app.use(express.static('app/public/'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressValidator());
+app.use(expressSession({
+	secret: 'd41d8cd98f00b204e9800998ecf8427e',
+	resave: false,
+	saveUninitialized: false
+}));
 
 consign()
 	.include('app/routes')

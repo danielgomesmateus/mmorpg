@@ -22,7 +22,9 @@
 			<div class="container">
 				<form class="form-inline form-entrar">
 					<div class="form-group">				
-						<button type="button" class="btn btn-success">Voltar</button>
+						<a href="/" class="btn btn-warning">
+							Voltar
+						</a>
 					</div>
 				</form>
 			</div>
@@ -30,18 +32,20 @@
 		</nav>
 
 	    <div class="container">
-
-	    	<% if(validacao.length >= 1) { %>
-	    	<% for(j = 0; j < validacao.length; j ++) { %>
-			<div class="alert alert-danger">
-				<strong>
-					Erro!
-				</strong> <%= validacao[j].msg %>
-			</div>
-			<% } } %>
-	    		
+	    	
+	    	<div class="row">
+	    		<div class="col-md-12 col-xs-12 col-ms-12">
+			    	<% if(validacao.length >= 1) { %>
+			    	<% for(j = 0; j < validacao.length; j ++) { %>
+					<div class="alert alert-danger">
+						<strong>
+							Erro!
+						</strong> <%= validacao[j].msg %>
+					</div>
+					<% } } %>
+				</div>
+	    	</div>
 			<form class="form-cadastro" action="/register" method="POST">
-			
 				<div class="row">
 					<div class="col-xs-4">
 						<div class="form-group">

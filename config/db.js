@@ -26,6 +26,12 @@ function query(db, data) {
 		case 'insert':
 			collection.insertOne(data.user, data.callback);
 			break;
+		case 'login':
+			collection.findOne(data.user, data.callback);
+			break;
+		case 'select':
+			collection.findOne(data.user, data.callback);
+			break;
 
 		default:
 			break;

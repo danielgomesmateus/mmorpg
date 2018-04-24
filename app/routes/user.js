@@ -14,4 +14,9 @@ module.exports = function(app) {
 
 		app.app.controllers.usersController.login(app, request, response);
 	});
+
+	app.get('/logout', function(request, response) {
+
+		app.app.controllers.usersController.logout(app, request, response);
+	});
 }

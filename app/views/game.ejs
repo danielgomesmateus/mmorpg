@@ -20,8 +20,13 @@
 
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container">
-				<div class="form-group sair">
-					<button type="button" class="btn btn-info pull-right">Sair</button>
+				<div class="form-group sair pull-right">
+					<span>
+						Olá <%= name %>!
+					</span>
+					<a href="/logout" class="btn btn-danger">
+						Sair
+					</a>
 				</div>
 			</div>
 		</nav>
@@ -30,29 +35,29 @@
 	    	
 			<div class="row">
 	    		<div class="col-sm-3 casa">
-					<img src="img/casa_martell.jpg" />
+					<img src="img/casa_<%= house %>.jpg" />
 				</div>
 
 	    		<div class="col-sm-9">
 					<div class="row barra-superior">
 						<div class="col-sm-2"> 
 							<img src="img/habilidades/temor.jpg" title="Temor" alt="Temor" />
-							<span>754</span>
+							<span><%= attrs.fear %></span>
 						</div>
 						
 						<div class="col-sm-2"> 
 							<img src="img/habilidades/sabedoria.jpg" title="Sabedoria" alt="Sabedoria"/>
-							<span>754</span>
+							<span><%= attrs.wisdom %></span>
 						</div>
 						
 						<div class="col-sm-2"> 
 							<img src="img/habilidades/comercio.jpg" title="Comércio" alt="Comércio"/>
-							<span>754</span>
+							<span><%= attrs.trade %></span>
 						</div>
 						
 						<div class="col-sm-2"> 
 							<img src="img/habilidades/magia.jpg" title="Magia" alt="Magia"/>
-							<span>754</span>
+							<span><%= attrs.magic %></span>
 						</div>
 					</div>
 				</div>
@@ -73,6 +78,7 @@
 				<div class="row">
 					<div class="col-sm-1">
 						<img src="img/outros/suditos.jpg" title="Aldeões" alt="Aldeões"/>
+						<span><%= attrs.subjects %></span>
 					</div>
 					
 					<div class="col-sm-1">
@@ -83,7 +89,7 @@
 					
 					<div class="col-sm-2">
 						<img src="img/outros/moeda.jpg" title="Moeda" alt="Moeda"/>
-						<span>25</span>
+						<span><%= attrs.coin %></span>
 					</div>
 					
 				</div>

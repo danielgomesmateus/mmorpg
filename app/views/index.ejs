@@ -17,21 +17,18 @@
 	</head>
 
 	<body class="body-index">
-    	<% if(validation.length >= 1) { %>
-    	<% for(j = 0; j < validation.length; j ++) { %>
-		<div class="alert alert-danger">
-			<strong>
-				Erro!
-			</strong> <%= validation[j].msg %>
-		</div>
-		<% } } %>
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container">
 				<form class="form-inline form-entrar" action="/login" method="POST">
 					<div class="form-group">				
-						<input type="text" name="username" id="usuario" placeholder="Usuário" class="form-control" autocomplete="off" required="required">
+						<input type="text" name="user" id="usuario" placeholder="Usuário" class="form-control" autocomplete="off" required="required">
 						<input type="password" name="password" id="senha" placeholder="Senha" class="form-control" minlength="6" maxlength="10" required="required">
-						<button type="submit" class="btn btn-success">Entrar</button>
+						<button type="submit" class="btn btn-success">
+							Entrar
+						</button>
+						<a href="/register" class="btn btn-primary">
+							Criar uma nova conta
+						</a>
 					</div>
 				</form>
 			</div>
@@ -40,6 +37,16 @@
 
 	    <div class="container">
 	    	<div class="row">
+	    		<div class="col-md-12 col-xs-12 col-sm-12">
+			    	<% if(validation.length >= 1) { %>
+			    	<% for(j = 0; j < validation.length; j ++) { %>
+					<div class="alert alert-danger">
+						<strong>
+							Erro!
+						</strong> <%= validation[j].msg %>
+					</div>
+					<% } } %>
+				</div>
 	    		<div class="col-md-2"></div>
 
 	    		<div class="col-md-8">

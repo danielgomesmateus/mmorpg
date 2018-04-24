@@ -21,17 +21,22 @@ module.exports.register = function(app, request, response) {
 	else {
 		
 		var connDB = app.config.db;
-		var model = new app.app.models.usersModel(connDB);
 
+		var model = new app.app.models.usersModel(connDB);
 		model.register(user);
 
-		response.redirect('/game');
+		var modelGame = new app.app.models.gameModel(connDB);
+		modelGame.setParams(request.body.user);
+
+		response.render('index', {validation: [{msg: 'Realize o login para acessar o jogo!'}]});
 	}
 }
 
 module.exports.login = function(app, request, response) {
 	
-	request.assert('username', 'Informe o nome de usuário!').notEmpty();
+	var user = request.body;
+
+	request.assert('user', 'Informe o nome de usuário!').notEmpty();
 	request.assert('password', 'Informe a senha de acesso!').notEmpty();
 
 	var errors = request.validationErrors();
@@ -43,6 +48,17 @@ module.exports.login = function(app, request, response) {
 	}
 	else {
 
-		response.redirect('/game');
+		var connDB = app.config.db;
+		var model = new app.app.models.usersModel(connDB);
+
+		model.login(request, response, user);
 	}
+}
+
+module.exports.logout = function(app, request, response) {
+
+	request.session.destroy(function(error) {
+
+		response.render('index', {validation: [{msg: 'Você foi deslogado com sucesso!'}]});
+	});
 }
