@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+	<!DOCTYPE HTML>
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
@@ -34,6 +34,15 @@
 	    <div class="container">
 	    	
 			<div class="row">
+				<div class="col-md-12 col-xs-12 col-sm-12">
+					<% if(validation.msg.length >= 1) { %>
+					<div class="alert alert-danger">
+						<strong>
+							Erro!
+						</strong> <%= validation.msg %>
+					</div>
+					<% } %>
+				</div>
 	    		<div class="col-sm-3 casa">
 					<img src="img/casa_<%= house %>.jpg" />
 				</div>
@@ -66,7 +75,9 @@
 			<div class="row">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-9">
-					<div class="acoes"></div>					
+					<div class="acoes" id="actions">
+						O que deseja fazer hoje?
+					</div>					
 				</div>
 			</div>
 			
@@ -77,12 +88,12 @@
 			
 				<div class="row">
 					<div class="col-sm-1">
-						<img src="img/outros/suditos.jpg" title="Aldeões" alt="Aldeões"/>
+						<img src="img/outros/suditos.jpg" title="Aldeões" alt="Aldeões" id="btn-villagers">
 						<span><%= attrs.subjects %></span>
 					</div>
 					
 					<div class="col-sm-1">
-						<img src="img/outros/pergaminho.jpg" title="Pergaminhos" alt="Pergaminhos"/>
+						<img src="img/outros/pergaminho.jpg" title="Pergaminhos" alt="Pergaminhos" id="btn-scrolls">
 					</div>
 					
 					<div class="col-sm-8"></div>
@@ -96,4 +107,32 @@
 			</div>
 		</div>
 	</body>
+	<script>
+		$('document').ready(function() {
+			
+			$('#btn-villagers').click(function() {
+				
+				$.ajax({
+					url: '/villagers',
+					method: 'GET',
+					success: function(data) {
+
+						$('#actions').html(data);
+					}
+				});
+			});
+
+			$('#btn-scrolls').click(function() {
+				
+				$.ajax({
+					url: '/scrolls',
+					method: 'GET',
+					success: function(data) {
+
+						$('#actions').html(data);
+					}
+				});
+			});
+		})
+	</script>
 </html>

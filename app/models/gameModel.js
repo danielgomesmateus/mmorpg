@@ -28,7 +28,7 @@ gameModel.prototype.setParams = function(user) {
 	this._connDB(params);
 }
 
-gameModel.prototype.getParams = function(request, response, user) {
+gameModel.prototype.getParams = function(request, response, user, validation) {
 	
 	var params = {
 		option: 'select',
@@ -38,10 +38,72 @@ gameModel.prototype.getParams = function(request, response, user) {
 
 			if(result != null) {
 
-				response.render('game', {attrs: result, name: request.session.user, house: request.session.house});
+				response.render('game', {attrs: result, name: request.session.user, house: request.session.house, validation});
 			}
 		}
 	};
+
+	this._connDB(params);
+}
+
+gameModel.prototype.actionVillager = function(request, response, dataForm) {
+
+	var time = null;
+
+	switch(dataForm.action) {
+
+		case 1:
+			time = 1 * 60 * 60000;
+			break;
+		case 2:
+			time = 2 * 60 * 60000;
+			break;
+
+		case 3:
+			time = 5 * 60 * 60000;
+			break;
+
+		case 4:
+			time = 5 * 60 * 60000;
+			break;
+
+	}
+
+	var date = new Date();
+
+	dataForm.user = request.session.user;
+	dataForm.ends_in = date.getTime() + time;
+
+	var params = {
+		option: 'insert',
+		user: dataForm,
+		collection: 'actions',
+		callback: function(error, result) {
+
+			if(result != null) {
+
+				response.redirect('/game?msg=cm_success');
+			}
+		}
+	}
+
+	this._connDB(params);
+}
+
+gameModel.prototype.listActions = function(request, response, data) {
+
+	var params = {
+		option: 'select',
+		user: data,
+		collection: 'actions',
+		callback: function(erro, result) {
+
+			if(result != null) {
+
+				response.render('scrolls', {actions: [result]});
+			}
+		}
+	}
 
 	this._connDB(params);
 }
