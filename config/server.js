@@ -3,6 +3,7 @@ var consign = require('consign');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
+var helmet = require('helmet');
 
 var app = express();
 
@@ -17,6 +18,7 @@ app.use(expressSession({
 	resave: false,
 	saveUninitialized: false
 }));
+app.use(helmet());
 
 consign()
 	.include('app/routes')
