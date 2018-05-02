@@ -1,3 +1,5 @@
+var crypto = require('crypto');
+
 function UsersModel(connDB) {
 
 	this._connDB = connDB;
@@ -5,21 +7,27 @@ function UsersModel(connDB) {
 
 UsersModel.prototype.register = function(data) {
 
+	var password = crypto.createHash('md5').update(data.password).digest('hex');
+	data.password = password;
+
 	var params = {
 		option: 'insert',
 		user: data,
 		collection: 'users',
 		callback: function(error, result) {
-			
+
 			console.log("Registro gravado!");
 		}
 	};
-	
+
 	this._connDB(params);
 }
 
 UsersModel.prototype.login = function(request, response, data) {
 
+	var password = crypto.createHash('md5').update(data.password).digest('hex');
+	data.password = password;
+	
 	var params = {
 		option: 'login',
 		user: data,
