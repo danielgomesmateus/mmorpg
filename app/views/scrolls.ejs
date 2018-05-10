@@ -1,9 +1,9 @@
-<div id="pergaminhos">					
+<div id="pergaminhos">
 	<h3>Pergaminhos</h3>
 	<ul>
 		<% var text = null; %>
 		<% for(i = 0; i < actions.length; i ++) { %>
-		<%  
+		<%
 
 			switch(actions[i].action) {
 
@@ -13,15 +13,15 @@
 
 				case '2':
 					text = 'Enforcar aldeão (3G e 2H)';
-					break;	
+					break;
 
 				case '3':
 					text = 'Ensinar história (1G e 5H)';
-					break;	
+					break;
 
 				case '4':
 					text = 'Ensinar magia (1G e 5H)';
-					break;					
+					break;
 			}
 
 			var date = new Date();
@@ -31,8 +31,8 @@
 		<li>
 			<%= text %> - <%= actions[i].quantity %> (quantidade)
 			<small>
-				restam <%= ends_in %> segundos - 
-				<a href="#">
+				restam <span class="time_left"><%= ends_in %></span> segundos -
+				<a href="/revoke/<%= actions[i]._id %>">
 					revogar ordem
 				</a>
 			</small>

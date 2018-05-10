@@ -19,4 +19,9 @@ module.exports = function(app) {
 
 		app.app.controllers.gameController.action_villager(app, request, response);
 	});
-}	
+
+	app.get('/revoke/:id', function(request, response) {
+
+		app.app.controllers.gameController.revokeOrder(app, request, response);
+	});
+}

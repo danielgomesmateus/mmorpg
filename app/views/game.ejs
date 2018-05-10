@@ -4,13 +4,13 @@
 		<meta charset="UTF-8">
 
 		<title>MMORPG - Game of Thrones</title>
-		
+
 		<!-- JQuery -->
 		<script src="js/jquery-2.2.1.js"></script>
 
 		<!-- bootstrap - link cdn -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	
+
 		<!-- incluindo css -->
 		<link href="css/style.css" rel="stylesheet">
 
@@ -32,7 +32,7 @@
 		</nav>
 
 	    <div class="container">
-	    	
+
 			<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12">
 					<% if(validation.msg.length >= 1) { %>
@@ -49,69 +49,69 @@
 
 	    		<div class="col-sm-9">
 					<div class="row barra-superior">
-						<div class="col-sm-2"> 
+						<div class="col-sm-2">
 							<img src="img/habilidades/temor.jpg" title="Temor" alt="Temor" />
 							<span><%= attrs.fear %></span>
 						</div>
-						
-						<div class="col-sm-2"> 
+
+						<div class="col-sm-2">
 							<img src="img/habilidades/sabedoria.jpg" title="Sabedoria" alt="Sabedoria"/>
 							<span><%= attrs.wisdom %></span>
 						</div>
-						
-						<div class="col-sm-2"> 
+
+						<div class="col-sm-2">
 							<img src="img/habilidades/comercio.jpg" title="Comércio" alt="Comércio"/>
 							<span><%= attrs.trade %></span>
 						</div>
-						
-						<div class="col-sm-2"> 
+
+						<div class="col-sm-2">
 							<img src="img/habilidades/magia.jpg" title="Magia" alt="Magia"/>
 							<span><%= attrs.magic %></span>
 						</div>
 					</div>
 				</div>
 	    	</div>
-			
+
 			<div class="row">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-9">
 					<div class="acoes" id="actions">
 						O que deseja fazer hoje?
-					</div>					
+					</div>
 				</div>
 			</div>
-			
-		</div>	
-		
+
+		</div>
+
 		<div class="barra-inferior">
 			<div class="container">
-			
+
 				<div class="row">
 					<div class="col-sm-1">
 						<img src="img/outros/suditos.jpg" title="Aldeões" alt="Aldeões" id="btn-villagers">
 						<span><%= attrs.subjects %></span>
 					</div>
-					
+
 					<div class="col-sm-1">
 						<img src="img/outros/pergaminho.jpg" title="Pergaminhos" alt="Pergaminhos" id="btn-scrolls">
 					</div>
-					
+
 					<div class="col-sm-8"></div>
-					
+
 					<div class="col-sm-2">
 						<img src="img/outros/moeda.jpg" title="Moeda" alt="Moeda"/>
 						<span><%= attrs.coin %></span>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</body>
 	<script>
 		$('document').ready(function() {
-			
+
 			$('#btn-villagers').click(function() {
-				
+
 				$.ajax({
 					url: '/villagers',
 					method: 'GET',
@@ -123,16 +123,40 @@
 			});
 
 			$('#btn-scrolls').click(function() {
-				
+
 				$.ajax({
 					url: '/scrolls',
 					method: 'GET',
 					success: function(data) {
 
 						$('#actions').html(data);
+
+						clearTimeout(timer);
+						stopwatch();
 					}
 				});
 			});
-		})
+		});
+
+		var timer = null;
+
+		function stopwatch() {
+
+			$('.time_left').each(function() {
+					var seconds = $(this).html();
+					var seconds_now = parseInt(seconds) - 1;
+
+					if(seconds_now < 0) {
+
+						location.href = "/game";
+					}
+					else {
+
+						$(this).html(seconds_now);
+					}
+			});
+
+			timer = setTimeout('stopwatch()', 1000);
+		}
 	</script>
 </html>

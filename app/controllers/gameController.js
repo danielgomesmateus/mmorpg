@@ -3,7 +3,7 @@ module.exports.index = function(app, request, response) {
 	if(request.session.authorized) {
 
 		var validation = {msg: ''};
-			
+
 		if(request.query.error == 'cm_invalid') {
 
 			validation = {msg: 'Comando inválido!'};
@@ -13,10 +13,10 @@ module.exports.index = function(app, request, response) {
 
 			validation = {msg: 'Comando executado com sucesso!'}
 		}
-		
+
 		var data = {'user': request.session.user};
 
-		var connDB = app.config.db;	
+		var connDB = app.config.db;
 		var model = new app.app.models.gameModel(connDB);
 
 		model.getParams(request, response, data, validation);
@@ -30,7 +30,7 @@ module.exports.index = function(app, request, response) {
 module.exports.villagers = function(app, request, response) {
 
 	if(request.session.authorized) {
-		
+
 		response.render('villagers', {});
 	}
 	else {
@@ -42,11 +42,13 @@ module.exports.villagers = function(app, request, response) {
 module.exports.scrolls = function(app, request, response) {
 
 	if(request.session.authorized) {
-		
+
 		var connDB = app.config.db;
 		var model = new app.app.models.gameModel(connDB);
 
-		var data = {user: request.session.user};
+		var data = [];
+		data['user'] = request.session.user;
+
 		model.listActions(request, response, data);
 	}
 	else {
@@ -58,7 +60,7 @@ module.exports.scrolls = function(app, request, response) {
 module.exports.action_villager = function(app, request, response) {
 
 	if(request.session.authorized) {
-		
+
 		var dataForm = request.body;
 
 		request.assert('action', 'Informe a ação desejada!').notEmpty();
@@ -81,4 +83,13 @@ module.exports.action_villager = function(app, request, response) {
 
 		response.render('index', {validation: [{msg: 'É necessário logar para acessar esta página!'}]});
 	}
+}
+
+module.exports.revokeOrder = function(app, request, response) {
+
+	var id = request.params.id
+	var connDB = app.config.db;
+	var model = new app.app.models.gameModel(connDB);
+
+	model.revokeOrder(request, response, id);
 }
