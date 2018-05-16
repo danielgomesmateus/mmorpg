@@ -1,4 +1,4 @@
-# apirest
+# mmorpg
 
 Jogo simples baseado na série Game of Thrones. Mais um projeto do curso "Curso Completo do Desenvolvedor NodeJS e MongoDB".
 
